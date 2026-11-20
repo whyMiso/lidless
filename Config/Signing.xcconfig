@@ -1,0 +1,13 @@
+// Signing settings shared by every target.
+//
+// Your Apple Developer Team ID goes in Config/Local.xcconfig (git-ignored), e.g.
+//   DEVELOPMENT_TEAM = ABCDE12345
+// It is embedded in both Info.plists (LidlessTeamID) and used at runtime for the XPC
+// code-signature checks in both directions, so the app and helper must share it.
+DEVELOPMENT_TEAM =
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = Developer ID Application
+ENABLE_HARDENED_RUNTIME = YES
+OTHER_CODE_SIGN_FLAGS = --timestamp
+
+#include? "Local.xcconfig"

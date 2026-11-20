@@ -1,0 +1,167 @@
+Platform: Apple Silicon
+Mode: READ-ONLY (no SMC writes are performed)
+
+== Fans (FNum = 1) ==
+-- Fan 0 --
+  F0Ac  [flt ] size=4  2502  (0x00601c45)
+  F0Mn  [flt ] size=4  2317  (0x00d01045)
+  F0Mx  [flt ] size=4  6550  (0x00b0cc45)
+  F0Tg  [flt ] size=4  2500  (0x00401c45)
+  F0md  [ui8 ] size=1  0  (0x00)
+  F0St  [ui8 ] size=1  5  (0x05)
+  mode key in use: F0md
+
+== Control keys ==
+  Ftst  (absent)
+  FS!   (absent)
+  FNum  [ui8 ] size=1  1  (0x01)
+
+== Temperature sensors (discovered) ==
+-- cpu (20) --
+  TCHP  41.4 °C
+  TCMb  67.5 °C
+  Te04  58.0 °C
+  Te08  57.9 °C
+  Te0C  57.0 °C
+  Te0R  56.9 °C
+  Tp00  60.2 °C
+  Tp04  59.1 °C
+  Tp0C  60.2 °C
+  Tp0G  59.2 °C
+  Tp0O  60.3 °C
+  Tp0R  58.9 °C
+  Tp0X  59.8 °C
+  Tp0a  59.1 °C
+  Tp0p  58.0 °C
+  Tp0u  57.7 °C
+  Tp0y  58.3 °C
+  Tp12  58.0 °C
+  Tp16  58.5 °C
+  Tp1E  57.7 °C
+-- gpu (23) --
+  Tg04  56.5 °C
+  Tg0C  56.8 °C
+  Tg0G  56.6 °C
+  Tg0K  57.0 °C
+  Tg0O  56.9 °C
+  Tg0R  56.8 °C
+  Tg0U  57.2 °C
+  Tg0X  57.3 °C
+  Tg0d  57.2 °C
+  Tg0g  57.1 °C
+  Tg0j  57.3 °C
+  Tg0m  56.9 °C
+  Tg0p  56.9 °C
+  Tg12  57.0 °C
+  Tg16  57.0 °C
+  Tg1A  57.2 °C
+  Tg1I  57.6 °C
+  Tg1M  57.1 °C
+  Tg1Y  57.3 °C
+  Tg1c  57.5 °C
+  Tg1g  57.4 °C
+  Tg1o  57.4 °C
+  Tg1s  56.8 °C
+-- other (100) --
+  TAOL  27.0 °C
+  TB0T  33.6 °C
+  TB1T  33.6 °C
+  TB2T  33.0 °C
+  TD00  33.2 °C
+  TD01  33.0 °C
+  TD02  33.0 °C
+  TD03  32.5 °C
+  TD04  32.5 °C
+  TD10  32.6 °C
+  TD11  33.4 °C
+  TD12  32.2 °C
+  TD13  33.0 °C
+  TD14  32.9 °C
+  TD20  31.9 °C
+  TD21  31.8 °C
+  TD22  31.9 °C
+  TD23  26.7 °C
+  TD24  32.1 °C
+  TDBP  33.4 °C
+  TDEL  35.1 °C
+  TDER  31.3 °C
+  TDTC  35.0 °C
+  TDTP  33.2 °C
+  TDVx  33.4 °C
+  TDeL  32.6 °C
+  TDeR  31.0 °C
+  TH0A  41.7 °C
+  TH0B  38.8 °C
+  TH0x  41.7 °C
+  TIOP  34.8 °C
+  TMVR  40.6 °C
+  TPD0  53.2 °C
+  TPD1  52.3 °C
+  TPD2  51.6 °C
+  TPD3  51.2 °C
+  TPD4  52.4 °C
+  TPD5  54.6 °C
+  TPD6  53.2 °C
+  TPD7  53.0 °C
+  TPD8  51.7 °C
+  TPD9  51.0 °C
+  TPDA  50.8 °C
+  TPDB  51.3 °C
+  TPDC  51.3 °C
+  TPDD  51.4 °C
+  TPDE  51.2 °C
+  TPDF  51.3 °C
+  TPDX  54.6 °C
+  TPMP  47.9 °C
+  TPSP  45.0 °C
+  TRD0  44.7 °C
+  TRD1  44.5 °C
+  TRD2  44.0 °C
+  TRD3  44.0 °C
+  TRD4  43.6 °C
+  TRD5  43.6 °C
+  TRD6  43.7 °C
+  TRD7  44.0 °C
+  TRD8  44.3 °C
+  TRDX  44.7 °C
+  TSCD  55.1 °C
+  TSDD  53.1 °C
+  TV04  14.6 °C
+  TV14  26.6 °C
+  TVA0  22.5 °C
+  TVAC  19.5 °C
+  TVAO  23.4 °C
+  TVC0  66.5 °C
+  TVD0  66.5 °C
+  TVG0  63.6 °C
+  TVMS  66.0 °C
+  TVN0  41.1 °C
+  TVN1  39.7 °C
+  TVNS  41.1 °C
+  TVS0  39.4 °C
+  TVS1  38.6 °C
+  TVV0  54.6 °C
+  TVmS  66.0 °C
+  TW0P  49.3 °C
+  Ta00  58.1 °C
+  Ta04  58.1 °C
+  Ta08  58.1 °C
+  Ta0K  58.1 °C
+  Ta0O  58.1 °C
+  Ta0R  58.1 °C
+  TaLR  34.6 °C
+  TaLW  33.6 °C
+  TfC0  52.4 °C
+  TfC1  51.6 °C
+  Ts00  54.8 °C
+  Ts04  54.8 °C
+  Ts08  56.5 °C
+  Ts0C  56.2 °C
+  Ts0G  56.6 °C
+  Ts0K  57.1 °C
+  Ts0O  58.1 °C
+  Ts0R  56.7 °C
+  Ts1P  29.8 °C
+  TsOP  31.6 °C
+
+CPU avg 58.2 °C, CPU max 67.5 °C, GPU max 57.6 °C
