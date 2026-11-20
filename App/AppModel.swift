@@ -100,6 +100,15 @@ final class AppModel: ObservableObject {
         #if DEBUG
         installDebugCommands()
         #endif
+
+        // `open -a Lidless --args --uninstall-helper` (used by scripts/install.sh --uninstall):
+        // unregister the daemon (launchd sends it SIGTERM, which restores sleep + fans), then quit.
+        if CommandLine.arguments.contains("--uninstall-helper") {
+            DispatchQueue.main.async { [weak self] in
+                self?.helper.uninstall()
+                NSApp.terminate(nil)
+            }
+        }
     }
 
     #if DEBUG

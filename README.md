@@ -11,7 +11,27 @@ It runs outside the App Store (Developer ID + notarisation), because the sandbox
 > [!WARNING]
 > Lid-closed mode disables all system sleep, and fan control writes directly to the SMC. Both are guarded (see [Safety defaults](#safety-defaults)) and always restored, but **use them at your own risk**. Don't put a running Mac in a bag.
 
-**Status:** early. There's no pre-built download yet, so for now you [build it from source](#build-from-source). It has been tested on an Apple M5 MacBook Pro (Mac17,2, macOS 26): keep-awake, lid-closed mode, fan Max/Auto, and `kill -9` restore. The fan write paths for M1–M4 and Intel are based on how other open-source tools do it, but are **untested**; reports are welcome (see [Contributing](#contributing)).
+## Install with your AI agent
+
+Paste this into Claude Code, Codex, Cursor or any other coding agent on your Mac:
+
+```text
+Install Lidless from https://github.com/whyMiso/lidless — clone it and follow AGENTS.md.
+```
+
+The agent runs `scripts/install.sh`. That script builds the app, signs it with your own Apple certificate and installs it, and the agent then tells you the two clicks only you can make.
+
+What you need:
+- **Xcode**, free from the App Store.
+- **An Apple certificate.** A free Apple ID added in Xcode → Settings → Accounts is enough; you don't need a paid developer account. If you don't have a certificate yet, the agent walks you through creating one.
+
+You can also run it yourself, without an agent:
+
+```bash
+git clone https://github.com/whyMiso/lidless.git && cd lidless && scripts/install.sh
+```
+
+**Status:** early. There's no pre-built download; the installer builds from source. It has been tested on an Apple M5 MacBook Pro (Mac17,2, macOS 26): keep-awake, lid-closed mode, fan Max/Auto, and `kill -9` restore. The fan write paths for M1–M4 and Intel are based on how other open-source tools do it, but are **untested**; reports are welcome (see [Contributing](#contributing)).
 
 ## Architecture
 
@@ -64,20 +84,26 @@ docs/                 read-only SMC dump from an M5, TESTING.md
 ### Requirements
 
 - macOS 14 or later, and Xcode 16 or later.
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen): `brew install xcodegen`.
-- A **Developer ID Application** certificate from a paid Apple Developer account. A privileged helper registered with `SMAppService` has to be signed, and the app and helper check each other's team ID over XPC.
+- An Apple code-signing certificate: **Apple Development** (from a free Apple ID in Xcode) or **Developer ID Application**. A privileged helper registered with `SMAppService` has to be signed, and the app and helper check each other's Team ID over XPC.
+- XcodeGen, only if you change `project.yml`. The generated project is committed.
 
 ### Steps
 
+`scripts/install.sh` does everything below. It finds your certificate, reads its Team ID into the git-ignored `Config/Local.xcconfig`, builds Release, verifies the signatures, and installs to `/Applications`. To do it by hand instead:
+
 ```bash
-git clone https://github.com/whyMiso/lidless.git && cd lidless
-cp Config/Local.xcconfig.example Config/Local.xcconfig   # put your Team ID in it
+cp Config/Local.xcconfig.example Config/Local.xcconfig   # set DEVELOPMENT_TEAM (and CODE_SIGN_IDENTITY if not Developer ID)
 scripts/build-debug.sh                                   # → build/DerivedData/Build/Products/Debug/Lidless.app
 ditto build/DerivedData/Build/Products/Debug/Lidless.app /Applications/Lidless.app
-open /Applications/Lidless.app
 ```
 
-To find your Team ID, run `security find-identity -v -p codesigning`. It's the 10 characters in parentheses after "Developer ID Application".
+Your Team ID is the certificate's **OU** field:
+
+```bash
+security find-certificate -c "Apple Development" -p | openssl x509 -noout -subject
+```
+
+For an "Apple Development" certificate, the code in parentheses in its name is *not* the Team ID.
 
 **First run.**
 1. Click **Install Helper…** in the menu.
@@ -85,9 +111,7 @@ To find your Team ID, run `security find-identity -v -p codesigning`. It's the 1
 
 Lidless has to live in `/Applications`, because `SMAppService` records the bundle path.
 
-**Uninstall.**
-1. In Settings → Helper, click **Uninstall Helper**. This restores everything first.
-2. Quit Lidless and delete it from `/Applications`.
+**Uninstall.** Run `scripts/install.sh --uninstall`. It restores sleep and fan settings, unregisters the helper and removes the app. Alternatively, click **Uninstall Helper** in Settings → Helper, then delete the app.
 
 **Tests.** Run `(cd Core && swift test)`. They cover the codec, pmset parsing, and every restore and guard path.
 
