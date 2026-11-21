@@ -29,7 +29,7 @@ enum Prefs {
             graceMinutes: 2.0,
             displaySleepOnLidClose: true,
             sleepOnSafetyStop: true,
-            keepDisplayOn: false,
+            keepDisplayOn: true,   // like Caffeine/Amphetamine: Keep Awake keeps the screen on too
             hotkeyEnabled: true,
             hotkeyCode: 37,   // kVK_ANSI_L
             hotkeyMods: Int(NSEvent.ModifierFlags([.control, .option, .command]).rawValue),
@@ -194,6 +194,10 @@ final class AppModel: ObservableObject {
         } else {
             keepAwake.stop()
         }
+    }
+
+    func keepDisplayChanged() {
+        keepAwake.setKeepDisplayOn(defaults.bool(forKey: Prefs.keepDisplayOn))
     }
 
     func setLidMode(_ on: Bool) {

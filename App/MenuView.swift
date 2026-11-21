@@ -4,6 +4,7 @@ import LidlessCore
 struct MenuView: View {
     @EnvironmentObject var model: AppModel
     @AppStorage(Prefs.customRPM) private var customRPM = 4000.0
+    @AppStorage(Prefs.keepDisplayOn) private var keepDisplayOn = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -45,6 +46,10 @@ struct MenuView: View {
                 Label("Keep Awake", systemImage: "eye").font(.title3.weight(.semibold))
             }
             .toggleStyle(.switch)
+            Toggle("Keep display on", isOn: $keepDisplayOn)
+                .toggleStyle(.checkbox)
+                .font(.caption)
+                .onChange(of: keepDisplayOn) { model.keepDisplayChanged() }
             if model.keepAwake.isActive {
                 Text(describe(model.keepAwake.endCondition)).font(.caption).foregroundStyle(.secondary)
             }

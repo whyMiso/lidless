@@ -20,7 +20,7 @@ private struct GeneralSettings: View {
     @EnvironmentObject var model: AppModel
     @State private var launchAtLogin = LaunchAtLogin.isEnabled
     @State private var loginError: String?
-    @AppStorage(Prefs.keepDisplayOn) private var keepDisplayOn = false
+    @AppStorage(Prefs.keepDisplayOn) private var keepDisplayOn = true
     @AppStorage(Prefs.processName) private var processName = "claude"
     @AppStorage(Prefs.graceMinutes) private var graceMinutes = 2.0
     @AppStorage(Prefs.hotkeyEnabled) private var hotkeyEnabled = true
@@ -35,6 +35,7 @@ private struct GeneralSettings: View {
             if let loginError { Text(loginError).foregroundStyle(.red).font(.caption) }
 
             Toggle("Keep display on during Keep Awake", isOn: $keepDisplayOn)
+                .onChange(of: keepDisplayOn) { model.keepDisplayChanged() }
 
             TextField("Watched process name", text: $processName)
                 .onSubmit { model.settingsChanged() }

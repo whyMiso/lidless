@@ -21,17 +21,26 @@ final class KeepAwakeController: ObservableObject {
         guard IOPMAssertionCreateWithName(kIOPMAssertionTypePreventUserIdleSystemSleep as CFString,
                                           IOPMAssertionLevel(kIOPMAssertionLevelOn), reason, &systemAssertion) == kIOReturnSuccess
         else { return }
-        if keepDisplayOn {
-            IOPMAssertionCreateWithName(kIOPMAssertionTypePreventUserIdleDisplaySleep as CFString,
-                                        IOPMAssertionLevel(kIOPMAssertionLevelOn), reason, &displayAssertion)
-        }
         endCondition = end
         self.graceSeconds = graceSeconds
         processLastSeen = Date()
         isActive = true
+        setKeepDisplayOn(keepDisplayOn)
         let t = Timer(timeInterval: 5, repeats: true) { [weak self] _ in self?.check() }
         RunLoop.main.add(t, forMode: .common)
         timer = t
+    }
+
+    /// Adds or drops the display assertion without restarting the session (or its timer).
+    func setKeepDisplayOn(_ on: Bool) {
+        if on, isActive, displayAssertion == 0 {
+            IOPMAssertionCreateWithName(kIOPMAssertionTypePreventUserIdleDisplaySleep as CFString,
+                                        IOPMAssertionLevel(kIOPMAssertionLevelOn),
+                                        "Lidless keep-awake (display)" as CFString, &displayAssertion)
+        } else if !on, displayAssertion != 0 {
+            IOPMAssertionRelease(displayAssertion)
+            displayAssertion = 0
+        }
     }
 
     func stop(silently: Bool = false) {
