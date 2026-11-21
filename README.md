@@ -2,7 +2,7 @@
 
 A macOS menu bar app (macOS 14+, Apple Silicon first, Intel supported) that:
 
-1. **Keeps the Mac awake** on demand (IOPMAssertions, no root).
+1. **Keeps the Mac awake** on demand (IOPMAssertions, no root). By default the screen stays on too; untick **Keep display on** in the menu to let only the display sleep.
 2. **Keeps it fully awake with the lid closed and no external display** (`pmset -a disablesleep 1`), so long Claude Code sessions keep running and stay reachable over the network.
 3. **Forces the fans** to max or a chosen RPM while active, and always hands them back to automatic.
 
